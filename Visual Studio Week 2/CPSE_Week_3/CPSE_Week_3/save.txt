@@ -1,0 +1,4 @@
+(50,60) CIRCLE blue 10
+(10,10) RECTANGLE red (30,40)
+(284,42) PICTURE Wow1.png
+(242,266) LINE green (292,316)

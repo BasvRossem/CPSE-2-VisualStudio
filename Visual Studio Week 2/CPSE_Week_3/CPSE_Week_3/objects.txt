@@ -1,0 +1,10 @@
+(50,60) CIRCLE blue 10
+(10,10) RECTANGLE red (30,40)
+(110, 50) PICTURE Wow1.png
+(250, 250) LINE green (300,300)
+
+
+(50,60)  blue 10
+(1010) RECTANGLE red (30,40)
+(110, 50) PICTURE Wow1png
+(250, 250) LINE een (300,300)
