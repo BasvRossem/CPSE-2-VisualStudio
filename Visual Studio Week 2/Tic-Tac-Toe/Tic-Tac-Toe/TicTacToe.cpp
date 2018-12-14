@@ -50,7 +50,7 @@ void TicTacToe::update() {
 void TicTacToe::selectPosition(int command) {
 	Turn lastTurn = turns.back();
 	int position = command - 1;
-	if (lastTurn.getPlayerOnPos(position) == "#") {
+	if (lastTurn.getPlayerOnPos(position) == noPlayer) {
 		if (turns.size() > 0) {
 			lastTurn.update(currentPlayer, position);
 			turns.push_back(lastTurn);
@@ -72,31 +72,29 @@ void TicTacToe::selectPosition(int command) {
 void TicTacToe::checkForWin() {
 	Turn lastTurn = turns.back();
 	std::array<std::string , 9> layout = lastTurn.getLayout();
-	//Row
-	if ((layout[0] != "#" && layout[1] != "#" && layout[1] != "#") && (layout[0] == layout[1] && layout[1] == layout[2])) { gameFinished = true; winner = currentPlayer;}
-	else if ((layout[3] != "#" && layout[4] != "#" && layout[5] != "#") && (layout[3] == layout[4] && layout[4] == layout[5])) { gameFinished = true; winner = currentPlayer;}
-	else if ((layout[6] != "#" && layout[7] != "#" && layout[8] != "#") && (layout[6] == layout[7] && layout[7] == layout[8])) { gameFinished = true; winner = currentPlayer;}
+	int rowSize = sqrt(layout.size());
 
-	//Column
-	else if ((layout[0] != "#" && layout[3] != "#" && layout[6] != "#") && (layout[0] == layout[3] && layout[3] == layout[6])) { gameFinished = true; winner = currentPlayer;}
-	else if ((layout[1] != "#" && layout[4] != "#" && layout[7] != "#") && (layout[1] == layout[4] && layout[4] == layout[7])) { gameFinished = true; winner = currentPlayer;}
-	else if ((layout[2] != "#" && layout[5] != "#" && layout[8] != "#") && (layout[2] == layout[5] && layout[5] == layout[8])) { gameFinished = true; winner = currentPlayer;}
-
-	//Diagonal
-	else if ((layout[0] != "#" && layout[4] != "#" && layout[8] != "#") && (layout[0] == layout[4] && layout[4] == layout[8])) { gameFinished = true; winner = currentPlayer;}
-	else if ((layout[2] != "#" && layout[4] != "#" && layout[6] != "#") && (layout[2] == layout[4] && layout[4] == layout[6])) { gameFinished = true; winner = currentPlayer;}
+	std::string lastPosPlayer = noPlayer;
+	for (int i = 0; i < answers.size(); i++) {
+		auto currentAnswer = answers[i];
+		if (layout[currentAnswer[0]] != noPlayer) {
+			if (layout[currentAnswer[0]] == layout[currentAnswer[1]] && layout[currentAnswer[1]] == layout[currentAnswer[2]]) {
+				gameFinished = true; winner = currentPlayer;
+			}
+		}
+	}
 	
-	else if (layout[0] != "#" && layout[1] != "#" && layout[2] != "#" && 
-		layout[3] != "#" && layout[4] != "#" && layout[5] != "#" && 
-		layout[6] != "#" && layout[7] != "#" && layout[8] != "#") 
+	if (layout[0] != noPlayer && layout[1] != noPlayer && layout[2] != noPlayer && 
+		layout[3] != noPlayer && layout[4] != noPlayer && layout[5] != noPlayer && 
+		layout[6] != noPlayer && layout[7] != noPlayer && layout[8] != noPlayer) 
 	{ 
 		gameFinished = true; 
-		winner = "#";
+		winner = noPlayer;
 	}
 }
 
 void TicTacToe::start() {
-	std::array<std::string, 9> emptyField = {"#", "#", "#", "#", "#", "#", "#", "#", "#", };
+	std::array<std::string, 9> emptyField = {noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, };
 	Turn firstTurn = Turn(0, 'A', emptyField);
 	turns.push_back(firstTurn);
 	std::cout << "It's " << currentPlayer << "'s turn." << std::endl;
@@ -108,7 +106,6 @@ void TicTacToe::undo() {
 	std::chrono::duration<double> period = now - lastUndo;
 	if (period.count() > 0.250) {
 		if (!turns.empty() && turns.size() > 1) {
-			
 			Turn lastTurn = turns.back();
 			turns.pop_back();
 			currentPlayer = lastTurn.getPlayer();
@@ -116,6 +113,7 @@ void TicTacToe::undo() {
 			lastUndo = std::chrono::system_clock::now();
 			std::cout << "It's " << currentPlayer << "'s turn." << std::endl;
 			printTurn();
+			gameFinished = false;
 		}
 	}
 }
@@ -157,7 +155,7 @@ void TicTacToe::showScreen(sf::RenderWindow & window) {
 }
 
 void TicTacToe::printWinner() {
-	if (winner == "#") {
+	if (winner == noPlayer) {
 		std::cout << "It's a tie!" << std::endl;
 	}
 	else {
@@ -171,7 +169,7 @@ void TicTacToe::showWinner(std::string & info) {
 		printWinner();
 		winnerDeclared = true;
 	}
-	if (winner == "#") {
+	if (winner == noPlayer) {
 		info += "It's a tie!";
 	}
 	else {
@@ -185,7 +183,7 @@ void TicTacToe::showGame(sf::RenderWindow & window) {
 	std::array<std::string, 9> layout = lastTurn.getLayout();
 	std::array<int, 9> layoutI;
 	for (int i = 0; i < layout.size(); i++) {
-		if (layout[i] == "#") { layoutI[i] = 1; }
+		if (layout[i] == noPlayer) { layoutI[i] = 1; }
 		if (layout[i] == "O") { layoutI[i] = 2; }
 		if (layout[i] == "X") { layoutI[i] = 3; }
 	}
