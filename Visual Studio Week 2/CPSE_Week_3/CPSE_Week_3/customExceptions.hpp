@@ -79,7 +79,20 @@ private:
 	std::string s;
 public:
 	notAFloat(const char & character) :
-		s{ std::string{ "Not a float:  [" } +character + "]" }
+		s{ std::string{ "Not a float: [" } +character + "]" }
+	{}
+
+	const char * what() const override {
+		return s.c_str();
+	}
+};
+
+class incorrectPicture : public std::exception {
+private:
+	std::string s;
+public:
+	incorrectPicture(std::string & picture) :
+		s{ std::string{ "Incorrect picture file: [" } +picture + "]" }
 	{}
 
 	const char * what() const override {

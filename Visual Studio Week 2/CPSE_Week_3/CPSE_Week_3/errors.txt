@@ -1,1 +1,4 @@
 unknown shape [blue]
+Wrong coordinate [(1010,x)]
+Incorrect picture file: [Wow1png]
+unknown color [een]

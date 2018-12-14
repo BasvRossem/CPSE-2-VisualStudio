@@ -5,6 +5,7 @@
 #include <fstream>
 #include "actions.hpp"
 #include "iostreamOverloaders.hpp"
+#include "customExceptions.hpp"
 
 class movableScreenObject {
 protected:
@@ -171,7 +172,7 @@ private:
 public:
 	pictureObject(sf::Vector2f position, std::string pictureName) {
 		if (!objectTexture.loadFromFile(pictureName)) {
-			std::cerr << "Picture with name: " << pictureName << "could not be found" << std::endl;
+			throw incorrectPicture(pictureName);
 		}
 		objectSprite.setTexture(objectTexture);
 		objectSprite.setPosition(position);

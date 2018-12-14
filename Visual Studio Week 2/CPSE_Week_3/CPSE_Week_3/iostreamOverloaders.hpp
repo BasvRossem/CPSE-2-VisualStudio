@@ -32,23 +32,37 @@ std::ifstream & operator>>(std::ifstream & input, sf::Color & rhs) {
 	if (s == "") {
 		throw endOfFile();
 	}
+	input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	throw unknownColor(s);
 }
 
 std::ifstream & operator>>(std::ifstream & input, sf::Vector2f & rhs) {
-	char c;
-	if (!(input >> c)) { throw endOfFile(); }
-	if (c != '(') { throw wrongCharacter(c); }
-
-	if (!(input >> rhs.x)) { notAFloat('a'); }
-
-	if (!(input >> c)) { throw endOfFile(); }
-
-	if (!(input >> rhs.y)) { notAFloat('b'); }
-
-	if (!(input >> c)) { throw endOfFile(); }
-	if (c != ')') { throw wrongCharacter(c); }
-
+	std::string s;
+	input >> s;
+	bool x_fetched = false;
+	for (unsigned int index = 0; index < s.length(); index++) {
+		if (s[index] == '(') {
+			x_fetched = false;
+		}
+		else if (s[index] == ',') {
+			x_fetched = true;
+		}
+		else if ((s[index] >= '0' && s[index] <= '9') && x_fetched == false) {
+			rhs.x *= 10;
+			rhs.x += (int)s[index] - '0';
+		}
+		else if (s[index] >= '0' && s[index] <= '9' && x_fetched == true) {
+			rhs.y *= 10;
+			rhs.y += (int)s[index] - '0';
+		}
+		else if (s[index] == ')') {
+			return input;
+		}
+		else {
+			input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			throw wrongCoordinate(s);
+		}
+	}
 	return input;
 }
 

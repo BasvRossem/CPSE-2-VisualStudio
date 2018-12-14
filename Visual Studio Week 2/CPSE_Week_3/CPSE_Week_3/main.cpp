@@ -13,7 +13,7 @@ movableScreenObject * screenObjectRead(std::ifstream & input) {
 	sf::Vector2f position;
 	std::string name;
 	input >> position >> name;
-	std::cout << name << std::endl;
+	//std::cout << name << std::endl;
 	if (name == "CIRCLE") {
 		sf::Color color;
 		float size;
@@ -40,7 +40,7 @@ movableScreenObject * screenObjectRead(std::ifstream & input) {
 	else if (name == "") {
 		throw endOfFile();
 	}
-
+	input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	throw unknownShape(name);
 }
 
@@ -53,18 +53,22 @@ int main() {
 	std::ofstream output("save.txt", std::ofstream::out);
 	std::ofstream errors("errors.txt", std::ofstream::out);
 	std::vector<movableScreenObject *> objects = {};
-	try {
-		for (;;) {
-			objects.push_back(screenObjectRead(input));
+	
+	for (;;) {
+		try {
+			objects.push_back(screenObjectRead(input)); objects.push_back(screenObjectRead(input));
+		}
+		catch (endOfFile) {
+			break;
+
+		}
+		catch (std::exception & problem) {
+			
+			std::cout << problem.what() << std::endl;
+			errors << problem.what() << '\n';
 		}
 	}
-	catch (endOfFile) {
-		// do nothing
-	}
-	catch (std::exception & problem) {
-		std::cout << problem.what();
-		errors << problem.what();
-	}
+
 
 
 	//rectangleObject blokje( sf::Vector2f(0.0, 0.0), sf::Vector2f(50.0, 100.0), sf::Color::Red );
