@@ -74,19 +74,19 @@ void TicTacToe::checkForWin() {
 	std::array<std::string , 9> layout = lastTurn.getLayout();
 	//Row
 	if ((layout[0] != "#" && layout[1] != "#" && layout[1] != "#") && (layout[0] == layout[1] && layout[1] == layout[2])) { gameFinished = true; winner = currentPlayer;}
-	if ((layout[3] != "#" && layout[4] != "#" && layout[5] != "#") && (layout[3] == layout[4] && layout[4] == layout[5])) { gameFinished = true; winner = currentPlayer;}
-	if ((layout[6] != "#" && layout[7] != "#" && layout[8] != "#") && (layout[6] == layout[7] && layout[7] == layout[8])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[3] != "#" && layout[4] != "#" && layout[5] != "#") && (layout[3] == layout[4] && layout[4] == layout[5])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[6] != "#" && layout[7] != "#" && layout[8] != "#") && (layout[6] == layout[7] && layout[7] == layout[8])) { gameFinished = true; winner = currentPlayer;}
 
 	//Column
-	if ((layout[0] != "#" && layout[3] != "#" && layout[6] != "#") && (layout[0] == layout[3] && layout[3] == layout[6])) { gameFinished = true; winner = currentPlayer;}
-	if ((layout[1] != "#" && layout[4] != "#" && layout[7] != "#") && (layout[1] == layout[4] && layout[4] == layout[7])) { gameFinished = true; winner = currentPlayer;}
-	if ((layout[2] != "#" && layout[5] != "#" && layout[8] != "#") && (layout[2] == layout[5] && layout[5] == layout[8])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[0] != "#" && layout[3] != "#" && layout[6] != "#") && (layout[0] == layout[3] && layout[3] == layout[6])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[1] != "#" && layout[4] != "#" && layout[7] != "#") && (layout[1] == layout[4] && layout[4] == layout[7])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[2] != "#" && layout[5] != "#" && layout[8] != "#") && (layout[2] == layout[5] && layout[5] == layout[8])) { gameFinished = true; winner = currentPlayer;}
 
 	//Diagonal
-	if ((layout[0] != "#" && layout[4] != "#" && layout[8] != "#") && (layout[0] == layout[4] && layout[4] == layout[8])) { gameFinished = true; winner = currentPlayer;}
-	if ((layout[2] != "#" && layout[4] != "#" && layout[6] != "#") && (layout[2] == layout[4] && layout[4] == layout[6])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[0] != "#" && layout[4] != "#" && layout[8] != "#") && (layout[0] == layout[4] && layout[4] == layout[8])) { gameFinished = true; winner = currentPlayer;}
+	else if ((layout[2] != "#" && layout[4] != "#" && layout[6] != "#") && (layout[2] == layout[4] && layout[4] == layout[6])) { gameFinished = true; winner = currentPlayer;}
 	
-	if (layout[0] != "#" && layout[1] != "#" && layout[2] != "#" && 
+	else if (layout[0] != "#" && layout[1] != "#" && layout[2] != "#" && 
 		layout[3] != "#" && layout[4] != "#" && layout[5] != "#" && 
 		layout[6] != "#" && layout[7] != "#" && layout[8] != "#") 
 	{ 
