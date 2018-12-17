@@ -55,11 +55,11 @@ void TicTacToe::selectPosition(int command) {
 			lastTurn.update(currentPlayer, position);
 			turns.push_back(lastTurn);
 			checkForWin();
-			if (currentPlayer == 'X') {
-				currentPlayer = 'O';
+			if (currentPlayer == playerX) {
+				currentPlayer = playerO;
 			}
-			else if (currentPlayer == 'O') {
-				currentPlayer = 'X';
+			else if (currentPlayer == playerO) {
+				currentPlayer = playerX;
 			}
 		}
 		if (!gameFinished) {
@@ -84,7 +84,7 @@ void TicTacToe::checkForWin() {
 		}
 	}
 	
-	if (turns.size() > 9) { 
+	if (turns.size() > 9 && !gameFinished) { 
 		gameFinished = true; 
 		winner = noPlayer;
 	}
@@ -92,7 +92,7 @@ void TicTacToe::checkForWin() {
 
 void TicTacToe::start() {
 	std::array<std::string, 9> emptyField = {noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, noPlayer, };
-	Turn firstTurn = Turn(0, 'A', emptyField);
+	Turn firstTurn = Turn(0, noPlayer, emptyField);
 	turns.push_back(firstTurn);
 	std::cout << "It's " << currentPlayer << "'s turn." << std::endl;
 	printTurn();

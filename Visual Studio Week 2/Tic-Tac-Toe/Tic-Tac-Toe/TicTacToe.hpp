@@ -13,13 +13,14 @@
 class TicTacToe{
 private:
 	std::vector<Turn> turns = {};
-	char currentPlayer = 'X';
-	char lastPlayer = 'O';
+	
 	bool gameFinished = false;
 	
 	std::string playerX = "X";
 	std::string playerO = "O";
 	std::string noPlayer = "-";
+	std::string currentPlayer = playerX;
+	std::string lastPlayer = playerO;
 	std::string winner = noPlayer;
 	bool winnerDeclared = false;
 	sf::Font font;
