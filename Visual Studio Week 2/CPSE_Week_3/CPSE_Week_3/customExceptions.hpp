@@ -4,7 +4,7 @@
 
 class endOfFile : public std::exception {
 public:
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return "End of file found\n";
 	}
 };
@@ -17,7 +17,7 @@ public:
 		s{ std::string{ "unknown color [" } + name + "]" }
 	{}
 	
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -30,7 +30,7 @@ public:
 		s{ std::string{ "unknown name [" } +name + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -43,7 +43,7 @@ public:
 		s{ std::string{ "unknown shape [" } +shape + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -56,7 +56,7 @@ public:
 		s{ std::string{ "Wrong coordinate [" } +coordinate + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -69,7 +69,7 @@ public:
 		s{ std::string{ "Wrong character [" } + character + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -82,7 +82,7 @@ public:
 		s{ std::string{ "Not a float: [" } +character + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };
@@ -95,7 +95,7 @@ public:
 		s{ std::string{ "Incorrect picture file: [" } +picture + "]" }
 	{}
 
-	const char * what() const override {
+	const char * what() const noexcept override {
 		return s.c_str();
 	}
 };

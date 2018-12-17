@@ -129,6 +129,9 @@ int main() {
 				for (auto & p : objects) {
 					p->writeSave(output);
 				}
+				for (auto & p : objects) {
+					delete(p);
+				}
 				input.close();
 				output.close();
 				errors.close();

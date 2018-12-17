@@ -19,7 +19,7 @@ private:
 	
 	std::string playerX = "X";
 	std::string playerO = "O";
-	std::string noPlayer = " ";
+	std::string noPlayer = "-";
 	std::string winner = noPlayer;
 	bool winnerDeclared = false;
 	sf::Font font;

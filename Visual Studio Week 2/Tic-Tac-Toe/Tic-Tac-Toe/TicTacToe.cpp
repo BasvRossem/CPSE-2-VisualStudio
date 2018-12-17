@@ -84,10 +84,7 @@ void TicTacToe::checkForWin() {
 		}
 	}
 	
-	if (layout[0] != noPlayer && layout[1] != noPlayer && layout[2] != noPlayer && 
-		layout[3] != noPlayer && layout[4] != noPlayer && layout[5] != noPlayer && 
-		layout[6] != noPlayer && layout[7] != noPlayer && layout[8] != noPlayer) 
-	{ 
+	if (turns.size() > 9) { 
 		gameFinished = true; 
 		winner = noPlayer;
 	}
@@ -114,6 +111,7 @@ void TicTacToe::undo() {
 			std::cout << "It's " << currentPlayer << "'s turn." << std::endl;
 			printTurn();
 			gameFinished = false;
+			winnerDeclared = false;
 		}
 	}
 }
@@ -129,6 +127,7 @@ void TicTacToe::printTurn() {
 	std::cout << firstRow << std::endl;
 	std::cout << secondRow << std::endl;
 	std::cout << thirdRow << std::endl;
+	std::cout <<  std::endl;
 }
 
 void TicTacToe::showScreen(sf::RenderWindow & window) {
@@ -155,26 +154,29 @@ void TicTacToe::showScreen(sf::RenderWindow & window) {
 }
 
 void TicTacToe::printWinner() {
-	if (winner == noPlayer) {
-		std::cout << "It's a tie!" << std::endl;
+	if (!winnerDeclared) {
+		if (winner == noPlayer) {
+			std::cout << "It's a tie!" << std::endl;
+			printTurn();
+		}
+		else {
+			std::cout << winner << " has won!" << std::endl;
+			printTurn();
+		}
+		winnerDeclared = true;
 	}
-	else {
-		std::cout << winner << " has won!" << std::endl;
-	}
-	printTurn();
+
 }
 
 void TicTacToe::showWinner(std::string & info) {
-	if (!winnerDeclared) {
-		printWinner();
-		winnerDeclared = true;
-	}
 	if (winner == noPlayer) {
 		info += "It's a tie!";
+		printWinner();
 	}
 	else {
 		info += winner;
 		info += " has won!";
+		printWinner();
 	}
 }
 
